@@ -29,3 +29,20 @@ Slide 17-19:Auditarea, Eficiența și Direcții Viitoare
 
 Slide 20-21: Bibliografie & Concluzii
                       
+
+Titlu Proiect: Sistem de instalare și deployment imagini Linux
+    Sistem de instalare și deployment imagini Linux folosind PXE, tftp, apoi configurare folosind scripturi bash si ansible/puppet.
+    După instalare, mașinile vor fi adăugate într-un inventar(bază de date) și vor putea fi vizualizate/modificate folosind comenzi, scripturi bash sau ansible.
+    Suplimentar, va avea posibilitatea de a porni/opri mașini virtuale folosind hypervizorul(Virtualbox), adăugare suport de WoL (Wake on Lan) și IPMI.
+    Testarea inițială se va face folosind mașini virtuale.
+    Se vor putea face configurații specifice pe bază de adresă MAC.
+
+Tasks:
+    1: Bootarea prin rețea a mașinilor fără sistem de operare (Bare-Metal/VM)
+    2: Instalarea 100% neasistată a sistemului de operare (Zero-Touch Deployment)
+    3: Aplicarea automată de configurații personalizate pe bază de adresă MAC
+    4: Auto-înregistrarea mașinilor în inventar (Discovery & Asset Management)
+    5: Managementul centralizat al stării mașinilor din inventar (Interogare & Modificare)
+    6: Controlul de la distanță al alimentării hardware-ului (Power Management)
+    7: Managementul automatizat al ciclului de viață al mașinilor virtuale (VM Orchestration)
+    
