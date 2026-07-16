@@ -1,0 +1,15 @@
+DEFAULT menu.c32
+PROMPT 0
+TIMEOUT 100
+ONTIMEOUT discovery
+
+MENU TITLE Meniu PXE - Sistem Automatizare
+
+LABEL discovery
+    MENU LABEL 1. Inregistrare automata in Inventar
+    KERNEL vmlinuz
+    APPEND initrd=initrd boot=casper ip=dhcp url=http://192.168.56.10/ubuntu/ubuntu-26.04-live-server-amd64.iso ---
+
+LABEL local
+    MENU LABEL 2. Booteaza de pe Hard Disk-ul Local
+    LOCALBOOT 0
