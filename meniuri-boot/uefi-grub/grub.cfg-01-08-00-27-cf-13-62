@@ -1,0 +1,6 @@
+set timeout=5
+
+menuentry "Inregistrare automata in Inventar (UEFI)" {
+    linux (tftp,192.168.56.10)/vmlinuz boot=casper autoinstall ip=dhcp url=http://192.168.56.10/ubuntu-special/ubuntu-live-server.iso ds=nocloud-net\;s=http://192.168.56.10/ubuntu/ ---
+    initrd (tftp,192.168.56.10)/initrd
+}
