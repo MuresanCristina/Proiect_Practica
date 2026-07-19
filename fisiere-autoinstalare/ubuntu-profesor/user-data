@@ -1,0 +1,26 @@
+#cloud-config
+autoinstall:
+  version: 1
+  interactive-sections: []
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  network:
+    network:
+      version: 2
+      ethernets:
+        enp0s3:
+          dhcp4: true
+  identity:
+    hostname: client-profesor
+    username: profesor
+    password: "$6$pDid0TPa6NVhXuTn$JuAKjErn//zSN6rNOu4P/oEWM7ZoQOaTq3ZxyHYKvCR58BUcr2IfPDijd2Wsi5IABfrFok58ikmnciVL3JlZd/"
+    realname: Profesor Practica
+  storage:
+    layout:
+      name: direct
+  ssh:
+    install-server: true
+    allow-pw: true
+  late-commands:
+    - "echo 'Instalare finalizata cu succes!' > /target/etc/motd"
