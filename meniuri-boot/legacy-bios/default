@@ -8,7 +8,7 @@ MENU TITLE Meniu PXE - Sistem Automatizare
 LABEL discovery
     MENU LABEL 1. Inregistrare automata in Inventar
     KERNEL vmlinuz
-    APPEND initrd=initrd boot=casper ip=dhcp url=http://192.168.56.10/ubuntu/ubuntu-26.04-live-server-amd64.iso ---
+    APPEND initrd=initrd boot=casper autoinstall ip=dhcp url=http://192.168.56.10/ubuntu/ubuntu-live-server.iso ds=nocloud-net;s=http://192.168.56.10/ubuntu/ ---
 
 LABEL local
     MENU LABEL 2. Booteaza de pe Hard Disk-ul Local
