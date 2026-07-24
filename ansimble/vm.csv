@@ -1,0 +1,4 @@
+hostname,ip,mac,os,status
+muresan-cristina-VirtualBox,192.168.56.10,08:00:27:06:69:d6,Ubuntu 24.04.4 LTS,Active
+ubuntu-client-profesor,192.168.56.50,08:00:27:4a:b0:ee,Unknown,Active
+ubuntu-client,192.168.56.122,08:00:27:cf:13:62,Unknown,Inactive
