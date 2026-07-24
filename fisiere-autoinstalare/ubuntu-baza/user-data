@@ -1,26 +1,11 @@
 #cloud-config
 autoinstall:
   version: 1
-  interactive-sections: []
-  locale: en_US.UTF-8
-  keyboard:
-    layout: us
-  network:
-    network:
-      version: 2
-      ethernets:
-        enp0s3:
-          dhcp4: true
   identity:
     hostname: ubuntu-client
     username: student
-    password: "$6$gQ/Xb/vW.cYqvVBz$Wsn.m65HrP/VoiA55gvGWkUXsVBCN.OpBZxVwmKGBmKBuVB7fomjiEN7YTYkpLpEaXNczKKXF680xQnJvp.wg."
-    realname: Student Practica
-  storage:
-    layout:
-      name: direct
-  ssh:
-    install-server: true
-    allow-pw: true
-  late-commands:
-    - "echo 'Instalare finalizata cu succes!' > /target/etc/motd"
+    password: "$6$iCGhfJgcCOpoUprp$Oqb0IEHUhW9leJZW3jNT/WeUu4/ImLrIxtG2mpn56NWt666.uk/LyVTDX8K0xGkZmtXfqULsXJ3TnboHH.KB60"
+  packages:
+    - openssh-server
+  runcmd:
+    - systemctl enable --now ssh
