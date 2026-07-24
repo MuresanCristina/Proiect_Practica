@@ -9,7 +9,7 @@ VBOX_HOST_IP = '192.168.56.1'
 VBOX_HOST_USER = 'cristina'
 VBOX_HOST_SSH_KEY = '/home/muresan-cristina/.ssh/vbox_host_key'
 VBOX_HOST_MANAGE_PATH = r'C:\Program Files\Oracle\VirtualBox\VBoxManage.exe'
-# Calea catre wol_send.ps1 PE HOST-UL WINDOWS (copiaza scriptul acolo, vezi instructiuni)
+
 VBOX_HOST_WOL_SCRIPT = r'C:\Users\cristina\wol_send.ps1'
 
 
@@ -111,6 +111,26 @@ def wake_on_lan(macaddress):
     return False
 
 
+def wait_until_unreachable(ip, timeout=60, interval=2):
+  """Verifica prin ping, la fiecare 'interval' secunde, pana cand mașina
+  chiar nu mai raspunde pe retea (adica s-a oprit efectiv), sau pana la
+  timeout. Returneaza True daca a devenit neresponsiva, False daca a expirat
+  timpul si tot raspunde (posibil ceva blocheaza shutdown-ul).
+  """
+  import time
+  elapsed = 0
+  while elapsed < timeout:
+    result = subprocess.run(
+        ['ping', '-c', '1', '-W', '1', ip],
+        capture_output=True,
+    )
+    if result.returncode != 0:
+      return True
+    time.sleep(interval)
+    elapsed += interval
+  return False
+
+
 def shutdown_machine(ip, mac, hostname, vbox_name=None):
   print(f'\n[ACTION] Trimit comanda de oprire catre {hostname} (MAC: {mac})...')
   cmd = [
@@ -164,7 +184,22 @@ def restart_machine(ip, mac, hostname, vbox_name):
     return None
 
   import time
-  time.sleep(3)
+
+  if vbox_name:
+    # VM - un buffer scurt e suficient, VirtualBox raporteaza oprirea rapid.
+    time.sleep(5)
+  else:
+    # Dispozitiv fizic - asteptam efectiv sa dispara de pe retea (shutdown-ul
+    # unui OS complet poate dura zeci de secunde), altfel WoL e trimis prea
+    # devreme si e ignorat (placa de retea inca nu e in modul de asteptare).
+    print(f'[ACTION] Astept ca {hostname} sa se opreasca efectiv (ping catre {ip})...')
+    if wait_until_unreachable(ip, timeout=60, interval=2):
+      print('[OK] Masina nu mai raspunde la ping - s-a oprit.')
+    else:
+      print('[!] Masina inca raspunde dupa 60s - continui oricum, dar WoL poate esua.')
+    # Buffer suplimentar - placa de retea are nevoie de cateva secunde dupa
+    # oprirea completa a sistemului ca sa intre in modul de ascultare WoL.
+    time.sleep(8)
 
   return start_machine(hostname, vbox_name, mac)
 
